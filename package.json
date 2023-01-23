@@ -1,0 +1,27 @@
+{
+  "name": "marketplace-infra-cdk",
+  "version": "1.0.0",
+  "description": "project that configures the marketplace aws infrastructure as a cdk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddoosyeo/marketplace-infra-cdk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ddoosyeo/marketplace-infra-cdk/issues"
+  },
+  "homepage": "https://github.com/ddoosyeo/marketplace-infra-cdk#readme",
+  "devDependencies": {
+    "aws-cdk-lib": "^2.61.1",
+    "dotenv": "^16.0.3",
+    "env-var": "^7.3.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
