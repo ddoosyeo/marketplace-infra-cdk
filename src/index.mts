@@ -4,7 +4,7 @@ import env from 'env-var';
 import { App, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
-import { WorkerNestedStack } from './constructs/index.mjs';
+import { WorkerNestedStack, QueueNestedStack, AlarmNestedStack } from './constructs/index.mjs';
 
 const DB_HOST = env.get('DB_HOST').required().asString();
 const DB_PORT = env.get('DB_PORT').required().asString();
@@ -20,6 +20,16 @@ const BINANCE_PROVIDER = env.get('BINANCE_PROVIDER').required().asString();
 class MarketplaceInfraStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps) {
     super(scope, id, props);
+
+    new AlarmNestedStack(this, 'Alarm', {
+      topicName: 'event-worker-error-alarm',
+      emailAddresses: ['']
+    });
+
+    new QueueNestedStack(this, 'Queue', {
+      queueName: 'marketplace-event-queue.fifo',
+      deadletterQueueName: 'marketplace-event-dl-queue.fifo'
+    });
 
     new WorkerNestedStack(this, 'Worker', {
       applicationName: 'marketplace-worker',
@@ -38,7 +48,8 @@ class MarketplaceInfraStack extends Stack {
         user: DB_USER,
         port: DB_PORT,
         password: DB_PASSWORD
-      }
+      },
+      alarmTopic: 'event-worker-error-alarm'
     });
   };
 }

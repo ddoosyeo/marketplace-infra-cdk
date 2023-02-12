@@ -21,6 +21,7 @@ interface WorkerProps extends NestedStackProps {
 	applicationName: string;
 	environmentName: string;
 	queueName: string;
+	alarmTopic: string;
 	account: string;
 	provider: Provider;
 	database: Database;
@@ -101,6 +102,11 @@ export class WorkerNestedStack extends NestedStack {
 				namespace: 'aws:elasticbeanstalk:application:environment',
 				optionName: 'BINANCE_PROVIDER',
 				value: props.provider.binance
+			},
+			{
+				namespace: 'aws:elasticbeanstalk:application:environment',
+				optionName: 'ALARM_TOPIC_NAME',
+				value: props.alarmTopic
 			},
 			{
 				namespace: 'aws:autoscaling:asg',
